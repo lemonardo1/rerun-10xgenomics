@@ -2,9 +2,17 @@ import scanpy as sc
 import pandas as pd
 import numpy as np
 import rerun as rr
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+h5ad_path = os.getenv("H5AD_PATH")
+if not h5ad_path:
+    raise ValueError("H5AD_PATH not set in .env file")
 
 # 1. Load AnnData
-adata = sc.read_h5ad("yourdata.h5ad")
+adata = sc.read_h5ad(h5ad_path)
 
 # 2. Preprocessing (if needed)
 if 'X_pca' not in adata.obsm:
